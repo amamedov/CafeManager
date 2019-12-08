@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core
+namespace Models
 {
     public class User
     {
