@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Models
 {
@@ -8,6 +9,6 @@ namespace Models
         public string Phone { get; set; }
         public int ID { get; set; }
         public int Position { get; set; }
-        public bool IsOnWork { get; set; }
+        public  List<WorkingPeriod> WorkingPeriods { get; set; }
     }
 }
