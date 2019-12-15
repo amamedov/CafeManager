@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Models
 {
@@ -6,7 +7,7 @@ namespace Models
     {
         public int ID { get; set; }
         public float TotalSum { get; set; }
-        public int NumberOfPositions { get; set; }
+        public List<MenuPosition> MenuPositions {get;set;}
         public int? UserID { get; set; }
         public bool IsTakeAway { get; set; }
     }

@@ -7,6 +7,7 @@ namespace Models
     {
         public string Name { get; set; }
         public float Price { get; set; }
-        public List<int> Ingridients { get; set; }
+        public List<Ingredient> Ingridients { get; set; }
+        public List<int> NumOfEachIngredient { get; set; }
     }
 }
