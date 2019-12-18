@@ -7,13 +7,16 @@ namespace Core
 {
     interface IRepository
     {
-        User GetUserInfo(string phone, string password);
-        Employee GetEmployeeInfo(string phone, string password);
+        void AddOrder(Order order);
+        void AddUser(User user);
+        void AddEmployee(Employee employee);
         List<Order> GetAllOrders();
+        List<User> GetAllUsers();
+        List<Employee> GetAllEmployees();
+        List<Order> GetAllOrdersForUser(User user);
         List<Order> GetAllOrdersPerPeriod(DateTime startDate, DateTime endDate);
         void SaveUserInfo(User user);
         void SaveEmployeeInfo(Employee employee);
-        void DeleteInfoAboutUser(User user);
-        void DeleteInfoAboutEmployee(Employee employee);
+        void SaveOrderInfo(Order order);
     }
 }
