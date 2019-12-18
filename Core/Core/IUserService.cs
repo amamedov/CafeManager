@@ -7,10 +7,10 @@ namespace Core
 {
     interface IUserService
     {
-        bool SignIn(string phone, string password, out User user);
-        User SignUp(string name, string phone, string password);
-        Order GetCurrentOrder();
-        Order MakeOrder(List<MenuPosition> menuPositions);
+        bool SignIn(string phone, string password, out string errorMessage, out User user);
+        bool SignUp(string name, string phone, string password, out string errorMessage, out User user);
+        bool GetCurrentOrder(out Order order);
+        Order MakeOrder(List<MenuPosition> menuPositions, bool isTakeAway);
         List<MenuPosition> PossibleChoice();
     }
 }

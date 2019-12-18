@@ -62,5 +62,16 @@ namespace Core
             dataBaseOrder = order;
             DataBase.SaveChanges();
         }
+
+        public Ingredient GetIngredient(int Id) => DataBase.Ingredients.First(i => i.Id == Id);
+
+        public void SaveIngredientInfo(Ingredient ingredient)
+        {
+            var dataBaseIngredient = DataBase.Ingredients.First(i => i.Id == ingredient.Id);
+            dataBaseIngredient = ingredient;
+            DataBase.SaveChanges();
+        }
+
+        public List<MenuPosition> GetAllMenuPositions() => DataBase.MenuPositions.ToList();
     }
 }

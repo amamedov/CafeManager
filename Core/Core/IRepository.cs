@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core
 {
-    interface IRepository
+    public interface IRepository
     {
         void AddOrder(Order order);
         void AddUser(User user);
@@ -18,5 +18,8 @@ namespace Core
         void SaveUserInfo(User user);
         void SaveEmployeeInfo(Employee employee);
         void SaveOrderInfo(Order order);
+        Ingredient GetIngredient(int Id);
+        void SaveIngredientInfo(Ingredient ingredient);
+        List<MenuPosition> GetAllMenuPositions();
     }
 }
