@@ -73,5 +73,29 @@ namespace Core
         }
 
         public List<MenuPosition> GetAllMenuPositions() => DataBase.MenuPositions.ToList();
+
+        public List<Transaction> GetAllTransactions() => DataBase.Transactions.ToList();
+
+        public List<Transaction> GetTransactionsPerPeriod(DateTime startDate, DateTime endDate) => DataBase.Transactions.Where(o => o.Time >= startDate && o.Time <= endDate).ToList();
+
+        public void AddFeedBack(FeedBack feedBack)
+        {
+            DataBase.FeedBacks.Add(feedBack);
+            DataBase.SaveChanges();
+        }
+
+        public List<FeedBack> GetAllFeedBacks() => DataBase.FeedBacks.ToList();
+
+        public void UpdateFeedBacks(List<FeedBack> feedBacks)
+        {
+            DataBase.UpdateRange(feedBacks);
+        }
+
+        public void AddTransaction(Transaction transaction)
+        {
+            DataBase.Transactions.Add(transaction);
+        }
+
+        public List<Ingredient> GetAllIngredients() => DataBase.Ingredients.ToList();
     }
 }

@@ -7,8 +7,10 @@ namespace Core
 {
     interface IEmployeeService
     {
-        bool SignIn(string phone, string password, out Employee employee);
-        bool MakeOrder();
-        List<string> GetStatistics();
+        bool SignIn(string phone, string password, out string errorMessage, out Employee employee);
+        void MakeOrder(Order order);
+        void MakeIngredientsOrder(Dictionary<int, int> order);
+        void StartWorking();
+        void EndWorking();
     }
 }

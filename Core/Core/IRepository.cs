@@ -20,6 +20,13 @@ namespace Core
         void SaveOrderInfo(Order order);
         Ingredient GetIngredient(int Id);
         void SaveIngredientInfo(Ingredient ingredient);
+        void AddTransaction(Transaction transaction);
         List<MenuPosition> GetAllMenuPositions();
+        List<Transaction> GetAllTransactions();
+        List<Transaction> GetTransactionsPerPeriod(DateTime startDate, DateTime endDate);
+        void AddFeedBack(FeedBack feedBack);
+        List<FeedBack> GetAllFeedBacks();
+        void UpdateFeedBacks(List<FeedBack> feedBacks);
+        List<Ingredient> GetAllIngredients();
     }
 }

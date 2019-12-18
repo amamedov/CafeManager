@@ -6,7 +6,7 @@ namespace Models
     public class MenuPosition
     {
         public string Name { get; set; }
-        public float Price { get; set; }
+        public decimal Price { get; set; }
         public Dictionary<int, int> IngredientQuantity { get; set; }
     }
 }

@@ -10,7 +10,8 @@ namespace Core
         bool SignIn(string phone, string password, out string errorMessage, out User user);
         bool SignUp(string name, string phone, string password, out string errorMessage, out User user);
         bool GetCurrentOrder(out Order order);
-        Order MakeOrder(List<MenuPosition> menuPositions, bool isTakeAway);
+        Order CreateOrder(List<MenuPosition> menuPositions, bool isTakeAway);
         List<MenuPosition> PossibleChoice();
+        FeedBack GiveFeedBack(string feedBack);
     }
 }

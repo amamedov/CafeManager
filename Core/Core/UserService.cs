@@ -21,7 +21,7 @@ namespace Core
             return order != null;
         }
 
-        public Order MakeOrder(List<MenuPosition> menuPositions, bool isTakeAway)
+        public Order CreateOrder(List<MenuPosition> menuPositions, bool isTakeAway)
         {
             var newOrder = new Order { 
             MenuPositions = menuPositions,
@@ -33,6 +33,8 @@ namespace Core
             {
                 newOrder.TotalSum += s.Price;
             }
+            var newTransaction = new Transaction { Time = DateTime.Now, Amount = newOrder.TotalSum };
+            Repository.AddTransaction(newTransaction);
             foreach (var m in menuPositions)
             {
                 foreach (var i in m.IngredientQuantity)
@@ -108,6 +110,13 @@ namespace Core
                 errorMessage = "This phone already exists, please try again or sign in using this phone!";
             }
             return user != null;
+        }
+
+        public FeedBack GiveFeedBack(string message)
+        {
+            var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message };
+            Repository.AddFeedBack(feedBack);
+            return feedBack;
         }
     }
 }
