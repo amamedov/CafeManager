@@ -6,17 +6,17 @@ using Models;
 
 namespace Core
 {
-    public class UserService : IUserService
+    public class UserService : IService
     {
-        IRepository Repository { get; set; }
+        dbRepository Repository { get; set; }
         User user;
-        public UserService(IRepository repository)
+        public UserService(dbRepository repository)
         {
             Repository = repository;
         }
         public bool GetCurrentOrder(out Order order)
         {
-            var allOrders = Repository.GetAllOrdersForUser(user);
+            var allOrders = Repository.GetAll(user);
             order = allOrders.FirstOrDefault(o => o.DeliveryTime == null);
             return order != null;
         }
@@ -34,14 +34,14 @@ namespace Core
                 newOrder.TotalSum += s.Price;
             }
             var newTransaction = new Transaction { Time = DateTime.Now, Amount = newOrder.TotalSum };
-            Repository.AddTransaction(newTransaction);
+            Add(newTransaction);
             foreach (var m in menuPositions)
             {
                 foreach (var i in m.IngredientQuantity)
                 {
-                    var quantity = Repository.GetIngredient(i.Key);
-                    quantity.QuantityInStorage -= i.Value;
-                    Repository.SaveIngredientInfo(quantity);
+                    var ingredient = Get<Ingredient>(i.Key);
+                    ingredient.QuantityInStorage -= i.Value;
+                    Repository.Update(ingredient);
                 }
            }
             return newOrder;
@@ -49,16 +49,14 @@ namespace Core
 
         public List<MenuPosition> PossibleChoice()
         {
-            var allPositions = Repository.GetAllMenuPositions();
+            var allPositions = Repository.GetAll<MenuPosition>();
             var possibleList = new List<MenuPosition>();
             foreach(var p in allPositions)
             {
                 var check = true;
                 foreach(var i in p.IngredientQuantity)
-                {
-                    if (Repository.GetIngredient(i.Key).QuantityInStorage < i.Value)
+                    if (Get<Ingredient>(i.Key).QuantityInStorage < i.Value)
                         check = false;
-                }
                 if (check == true)
                     possibleList.Add(p);
             }
@@ -67,7 +65,7 @@ namespace Core
 
         public bool SignIn(string phone, string password,out string errorMessage, out User user)
         {
-            var allUsers = Repository.GetAllUsers();
+            var allUsers = GetAll<User>();
             if (allUsers.Exists(u => u.Phone == phone))
                 if (allUsers.Exists(u => u.Phone == phone && u.Password == password))
                 {
@@ -89,13 +87,13 @@ namespace Core
 
         public bool SignUp(string name, string phone, string password, out string errorMessage, out User user)
         {
-            var allUsers = Repository.GetAllUsers();
+            var allUsers = Repository.GetAll<User>();
             if (allUsers.Exists(u => u.Phone == phone))
             {
                 if (password != "")
                 {
                     user = new User { Name = name, Phone = phone, Password = password };
-                    Repository.AddUser(user);
+                    Add(user);
                     errorMessage = "";
                 }
                 else
@@ -115,8 +113,27 @@ namespace Core
         public FeedBack GiveFeedBack(string message)
         {
             var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message };
-            Repository.AddFeedBack(feedBack);
+            Add(feedBack);
             return feedBack;
+        }
+
+        public T Get<T>(int Id) where T : class => Repository.Get<T>(Id);
+
+        public List<T> GetAll<T>() where T : class => Repository.GetAll<T>();
+
+        public void Update<T>(T obj) where T : class
+        {
+            Repository.Update(obj);
+        }
+
+        public void UpdateRange<T>(List<T> obj) where T : class
+        {
+            Repository.Update(obj);
+        }
+
+        public void Add<T>(T obj) where T : class
+        {
+            Repository.Add(obj);
         }
     }
 }

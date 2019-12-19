@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Core
 {
-    class Context : DbContext
+    public class Context : DbContext
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Order> Orders { get; set; }

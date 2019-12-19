@@ -5,20 +5,20 @@ using Models;
 
 namespace Core
 {
-    class EmployeeService : IEmployeeService
+    class EmployeeService : IService
     {
-        private IRepository Repository { get; set; }
+        private dbRepository Repository { get; set; }
         private Employee employee;
         private WorkingPeriod WorkingTime;
 
-        public EmployeeService(IRepository repository)
+        public EmployeeService(dbRepository repository)
         {
             Repository = repository;
         }
         public void MakeOrder(Order order)
         {
             order.DeliveryTime = DateTime.Now;
-            Repository.SaveOrderInfo(order);
+            Update(order);
         }
 
         public void MakeIngredientsOrder(Dictionary<int, int> order)
@@ -26,17 +26,17 @@ namespace Core
             var newTransaction = new Transaction { Time = DateTime.Now, Amount = 0 };
             foreach (var o in order)
             {
-                var ingredient = Repository.GetIngredient(o.Key);
+                var ingredient = Get<Ingredient>(o.Key);
                 ingredient.QuantityInStorage += o.Value;
                 newTransaction.Amount += Convert.ToDecimal(ingredient.Price * o.Value);
-                Repository.SaveIngredientInfo(ingredient);
+                Update(ingredient);
             }
-            Repository.AddTransaction(newTransaction);
+            Add(newTransaction);
         }
 
         public bool SignIn(string phone, string password, out string errorMessage, out Employee employee)
         {
-            var allEmployees = Repository.GetAllEmployees();
+            var allEmployees = Repository.GetAll<Employee>();
             if (allEmployees.Exists(u => u.Phone == phone))
                 if (allEmployees.Exists(u => u.Phone == phone && u.Password == password))
                 {
@@ -64,6 +64,25 @@ namespace Core
         {
             WorkingTime.EndDt = DateTime.Now;
             employee.WorkingPeriods.Add(WorkingTime);
+        }
+
+        public void Add<T>(T obj) where T : class
+        {
+            Repository.Add(obj);
+        }
+
+        public T Get<T>(int Id) where T : class => Repository.Get<T>(Id);
+
+        public List<T> GetAll<T>() where T : class => Repository.GetAll<T>();
+
+        public void Update<T>(T obj) where T : class
+        {
+            Repository.Update(obj);
+        }
+
+        public void UpdateRange<T>(List<T> obj) where T : class
+        {
+            Repository.UpdateRange(obj);
         }
     }
 }

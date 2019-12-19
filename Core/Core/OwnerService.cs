@@ -23,10 +23,10 @@ namespace Core
             return timeSum1 == timeSum2 ? 0 : (timeSum1 <= timeSum2) ? -1 : 1;
         }
     }
-    public class OwnerService : IOwnerService
+    public class OwnerService : IService
     {
-        IRepository Repository { get; set; }
-        public OwnerService(IRepository repository)
+        dbRepository Repository { get; set; }
+        public OwnerService(dbRepository repository)
         {
             Repository = repository;
         }
@@ -42,11 +42,11 @@ namespace Core
 
         public List<Transaction> GetProfitStatistics() => Repository.GetAllTransactions();
 
-        public List<Transaction> GetProfitStatisticsPerPeriod(DateTime startDate, DateTime endDate) => Repository.GetTransactionsPerPeriod(startDate, endDate);
+        public List<Transaction> GetProfitStatisticsPerPeriod(DateTime startDate, DateTime endDate) => Repository.GetAllTransactions(startDate, endDate);
 
         public List<Employee> GetTopOfEmployees() 
         {
-            var list = Repository.GetAllEmployees();
+            var list = Repository.GetAll<Employee>();
             list.Sort(new MyClassComparer());
             return list;
         }
@@ -59,7 +59,7 @@ namespace Core
 
         public bool SignUpEmployee(string name, string phone, string password, string position, out string errorMessage, out Employee employee)
         {
-            var allEmployees = Repository.GetAllEmployees();
+            var allEmployees = Repository.GetAll<Employee>();
             if (allEmployees.Exists(u => u.Phone == phone))
             {
                 if (password != "")
@@ -67,7 +67,7 @@ namespace Core
                     if (position != "")
                     {
                         employee = new Employee { Name = name, Phone = phone, Password = password, Position = position };
-                        Repository.AddEmployee(employee);
+                        Add(employee);
                         errorMessage = "";
                     }
                     else
@@ -90,7 +90,7 @@ namespace Core
             return employee != null;
         }
 
-        public List<FeedBack> GetAllFeedBacks() => Repository.GetAllFeedBacks();
+        public List<FeedBack> GetAllFeedBacks() => Repository.GetAll<FeedBack>();
         public List<FeedBack> GetUnreadFeedBacks()
         {
             var feedBacks = GetAllFeedBacks().Where(f => f.Seen == false).ToList();
@@ -98,10 +98,35 @@ namespace Core
             {
                 f.Seen = true;
             }
-            Repository.UpdateFeedBacks(feedBacks);
+            Update(feedBacks);
             return feedBacks;
         }
 
-        public List<Ingredient> GetIngredientInfo() => Repository.GetAllIngredients();
+        public List<Ingredient> GetIngredientInfo() => Repository.GetAll<Ingredient>();
+
+        public void Add<T>(T obj) where T : class
+        {
+            Repository.Add<T>(obj);
+        }
+
+        public T Get<T>(int Id) where T : class
+        {
+            return Repository.Get<T>(Id);
+        }
+
+        public List<T> GetAll<T>() where T : class
+        {
+            return Repository.GetAll<T>();
+        }
+
+        public void Update<T>(T obj) where T : class
+        {
+            Repository.Update(obj);
+        }
+
+        public void UpdateRange<T>(List<T> obj) where T : class
+        {
+            Repository.UpdateRange(obj);
+        }
     }
 }
