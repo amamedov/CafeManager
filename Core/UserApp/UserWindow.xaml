@@ -1,0 +1,27 @@
+﻿<Window x:Class="UserApp.UserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserApp"
+        mc:Ignorable="d"
+        Title="UserWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Border BorderThickness="0 0 1 0"></Border>
+        <StackPanel Grid.Column="1" >
+            <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="10 15">Make order</TextBlock>
+            <ListBox x:Name="OrderListBox"></ListBox>
+        </StackPanel>
+        <StackPanel>
+            <TextBlock FontSize="18" Margin="10 15" x:Name="WelcomeTextBlock">Welcome</TextBlock>
+            <Button x:Name="OrderButton" FontSize="18" Padding="8 5" HorizontalAlignment="Center" Margin="10 60 10 20" VerticalAlignment="Bottom">Make order</Button>
+            <Button x:Name="FeedbackButton" FontSize="18" Padding="8 5" Margin="10 60 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom">Leave feedback</Button>
+            <Button x:Name="ExitButton" FontSize="18" Margin="10 60 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10 5" Click="ExitButton_Click">Exit</Button>
+        </StackPanel>
+    </Grid>
+    
+</Window>

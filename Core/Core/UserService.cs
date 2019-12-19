@@ -8,11 +8,11 @@ namespace Core
 {
     public class UserService : IService
     {
-        dbRepository Repository { get; set; }
+        public dbRepository Repository { get; set; }
         User user;
-        public UserService(dbRepository repository)
+        public UserService()
         {
-            Repository = repository;
+            Repository = new dbRepository(new Context());
         }
         public bool GetCurrentOrder(out Order order)
         {
@@ -88,7 +88,7 @@ namespace Core
         public bool SignUp(string name, string phone, string password, out string errorMessage, out User user)
         {
             var allUsers = Repository.GetAll<User>();
-            if (allUsers.Exists(u => u.Phone == phone))
+            if (!allUsers.Exists(u => u.Phone == phone))
             {
                 if (password != "")
                 {

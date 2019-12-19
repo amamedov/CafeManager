@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core
 {
-    interface IService
+    public interface IService
     {
         void Add<T>(T obj) where T : class;
         T Get<T>(int Id) where T : class;

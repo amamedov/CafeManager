@@ -5,7 +5,7 @@ using Models;
 
 namespace Core
 {
-    class EmployeeService : IService
+    public class EmployeeService : IService
     {
         private dbRepository Repository { get; set; }
         private Employee employee;
