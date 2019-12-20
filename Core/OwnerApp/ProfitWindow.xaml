@@ -1,0 +1,18 @@
+﻿<Window x:Class="OwnerApp.ProfitWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OwnerApp"
+        mc:Ignorable="d"
+        Title="ProfitWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListBox Margin="8" x:Name="EmployeesListBox"></ListBox>
+        <Button Click="BackButton_Click" x:Name="BackButton" Grid.Row="1" VerticalAlignment="Center" FontSize="20" Margin="20" Padding="20 10" HorizontalAlignment="Left">Back</Button>
+        <Button Click="InfoButton_Click" x:Name="InfoButton" Grid.Row="1" VerticalAlignment="Center" FontSize="20" Margin="20" Padding="20 10" HorizontalAlignment="Right">Info about employee</Button>
+    </Grid>
+</Window>

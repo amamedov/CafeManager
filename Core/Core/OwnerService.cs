@@ -26,9 +26,9 @@ namespace Core
     public class OwnerService : IService
     {
         dbRepository Repository { get; set; }
-        public OwnerService(dbRepository repository)
+        public OwnerService()
         {
-            Repository = repository;
+            Repository = new dbRepository(new Context());
         }
         public List<Transaction> GetIncomePerPeriod(DateTime startDate, DateTime endDate) => GetProfitStatisticsPerPeriod(startDate, endDate).Where(t => t.Amount > 0M).ToList();
 
