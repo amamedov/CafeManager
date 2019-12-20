@@ -6,7 +6,7 @@ namespace Models
 {
     public class WorkingPeriod
     {
-        public DateTime StartDt { get; set; }
-        public DateTime EndDt { get; set; }
+        public DateTime? StartDt { get; set; }
+        public DateTime? EndDt { get; set; }
     }
 }

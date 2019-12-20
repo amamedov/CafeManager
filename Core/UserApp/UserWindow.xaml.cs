@@ -39,5 +39,10 @@ namespace UserApp
             feedbackWindow.ShowDialog();
             Show();
         }
+
+        private void ClearButton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderListBox.SelectedItems.Clear();
+        }
     }
 }

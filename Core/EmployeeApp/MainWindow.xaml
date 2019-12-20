@@ -1,0 +1,23 @@
+﻿<Window x:Class="EmployeeApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeeApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="500">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button x:Name="StartWorkButton" Click="StartWorkButton_Click" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="15 10">Start work</Button>
+        <Button x:Name="EndWorkButton" Click="EndWorkButton_Click" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="15 10">End work</Button>
+        <Button x:Name="OrderButton" Click="OrderButton_Click" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="15 10">Make order</Button>
+        <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Padding="15 10" x:Name="LogOutButton" Click="LogOutButton_Click">Log out</Button>
+    </Grid>
+</Window>

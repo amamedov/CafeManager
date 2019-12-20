@@ -9,11 +9,11 @@ namespace Core
     {
         private dbRepository Repository { get; set; }
         private Employee employee;
-        private WorkingPeriod WorkingTime;
+        public WorkingPeriod WorkingTime;
 
-        public EmployeeService(dbRepository repository)
+        public EmployeeService()
         {
-            Repository = repository;
+            Repository = new dbRepository(new Context());
         }
         public void MakeOrder(Order order)
         {
@@ -54,6 +54,13 @@ namespace Core
                 employee = null;
             }
             return employee != null;
+        }
+
+        public void LogOut()
+        {
+            WorkingTime.EndDt = DateTime.Now;
+            employee.WorkingPeriods.Add(WorkingTime);
+            employee = null;
         }
 
         public void StartWorking()

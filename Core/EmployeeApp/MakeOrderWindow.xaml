@@ -1,0 +1,19 @@
+﻿<Window x:Class="EmployeeApp.MakeOrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EmployeeApp"
+        mc:Ignorable="d"
+        Title="MakeOrderWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <ListBox x:Name="IngredientsListBox" Margin="8"></ListBox>
+        <Button Click="CancelButton_Click" x:Name="CancelButton" Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20" Padding="20 10">Cancel</Button>
+        <Button Click="MakeOrderButton_Click" x:Name="MakeOrderButton" Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Padding="20 10">Make order</Button>
+        <Button Click="ClearButton_Click" x:Name="ClearButton" Grid.Row="1" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" Padding="20 10">Clear</Button>
+    </Grid>
+</Window>
