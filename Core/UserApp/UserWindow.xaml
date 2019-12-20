@@ -14,11 +14,11 @@
         <Border BorderThickness="0 0 1 0"></Border>
         <StackPanel Grid.Column="1" >
             <TextBlock HorizontalAlignment="Center" FontSize="20" Margin="10 15">Make order</TextBlock>
-            <ListBox x:Name="OrderListBox"></ListBox>
+            <ListBox x:Name="OrderListBox" SelectionMode="Multiple"></ListBox>
         </StackPanel>
         <StackPanel>
             <TextBlock FontSize="18" Margin="10 15" x:Name="WelcomeTextBlock">Welcome</TextBlock>
-            <Button x:Name="OrderButton" FontSize="18" Padding="8 5" HorizontalAlignment="Center" Margin="10 60 10 20" VerticalAlignment="Bottom">Make order</Button>
+            <Button x:Name="OrderButton" Click="OrderButton_Click" FontSize="18" Padding="8 5" HorizontalAlignment="Center" Margin="10 60 10 20" VerticalAlignment="Bottom">Make order</Button>
             <Button x:Name="ClearButton" Click="ClearButton_Click" FontSize="18" Padding="8 5" Margin="10 20 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom">Clear order</Button>
             <Button x:Name="FeedbackButton" FontSize="18" Padding="8 5" Margin="10 45 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="FeedbackButton_Click">Leave feedback</Button>
             <Button x:Name="ExitButton" FontSize="18" Margin="10 20 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10 5" Click="ExitButton_Click">Exit</Button>

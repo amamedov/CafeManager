@@ -1,6 +1,8 @@
 ﻿using Core;
+using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +25,7 @@ namespace EmployeeApp
         {
             InitializeComponent();
             this.service = service;
+            IngredientsListBox.ItemsSource = service.GetAll<Ingredient>().Select(i => i.Name);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
@@ -32,7 +35,7 @@ namespace EmployeeApp
 
         private void MakeOrderButton_Click(object sender, RoutedEventArgs e)
         {
-
+            service.MakeIngredientsOrder(service.GetAll<Ingredient>().Where(i => IngredientsListBox.SelectedItems.Contains(i.Name)).Select(i => i.Id).ToList());
         }
 
         private void ClearButton_Click(object sender, RoutedEventArgs e)

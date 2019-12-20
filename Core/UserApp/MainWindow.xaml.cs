@@ -40,11 +40,11 @@ namespace UserApp
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(LoginTextBox.Text) && string.IsNullOrEmpty(PasswordBox.Password))
+            if (!string.IsNullOrEmpty(LoginTextBox.Text) && !string.IsNullOrEmpty(PasswordBox.Password))
             {
                 if (service.SignIn(LoginTextBox.Text, PasswordBox.Password, out string message, out User user))
                 {
-                    var userWindow = new UserWindow(service);
+                    var userWindow = new UserWindow(service, user);
                     Hide();
                     userWindow.ShowDialog();
                     Show();

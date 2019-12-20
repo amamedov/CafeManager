@@ -12,18 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace UserApp
+namespace OwnerApp
 {
     /// <summary>
-    /// Логика взаимодействия для RegistrationWindow.xaml
+    /// Interaction logic for EmployeeReg.xaml
     /// </summary>
-    public partial class RegistrationWindow : Window
+    public partial class EmployeeReg : Window
     {
-        UserService service;
-        public RegistrationWindow(IService service)
+        OwnerService service;
+        public EmployeeReg(OwnerService service)
         {
             InitializeComponent();
-            this.service = service as UserService;
+            this.service = service;
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -32,13 +32,12 @@ namespace UserApp
             {
                 if (PasswordBox.Password == ConfirmPasswordBox.Password)
                 {
-                    if (service.SignUp(NameTextBox.Text, PhoneTextBox.Text, PasswordBox.Password, out string message, out User user))
+                    if (!service.SignUpEmployee(NameTextBox.Text, PhoneTextBox.Text, PasswordBox.Password, "default", out string message, out Employee user))
                     {
                         Close();
                     }
                     else
                     {
-                        MessageBox.Show(message);
                         PhoneTextBox.Clear();
                         NameTextBox.Clear();
                         PasswordBox.Clear();

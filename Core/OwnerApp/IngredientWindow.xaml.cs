@@ -1,6 +1,8 @@
 ﻿using Core;
+using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,11 +25,12 @@ namespace OwnerApp
         {
             InitializeComponent();
             this.service = service;
+            IngredientsListBox.ItemsSource = service.GetAll<Ingredient>();
         }
 
         private void ViewInfoButton_Click(object sender, RoutedEventArgs e)
         {
-
+            MessageBox.Show(service.GetAll<Ingredient>().First(i => i.Name == IngredientsListBox.SelectedItem.ToString()).QuantityInStorage.ToString());
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

@@ -1,6 +1,8 @@
 ﻿using Core;
+using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +25,7 @@ namespace OwnerApp
         {
             InitializeComponent();
             this.service = service;
+            FeedbackListBox.ItemsSource = service.GetAll<FeedBack>().Select(f => f.UsersFeedBack);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -32,7 +35,6 @@ namespace OwnerApp
 
         private void ReadButton_Click(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

@@ -11,7 +11,7 @@
             <RowDefinition/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <ListBox x:Name="IngredientsListBox" Margin="8"></ListBox>
+        <ListBox x:Name="IngredientsListBox" SelectionMode="Multiple" Margin="8"></ListBox>
         <Button Click="CancelButton_Click" x:Name="CancelButton" Grid.Row="1" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20" Padding="20 10">Cancel</Button>
         <Button Click="MakeOrderButton_Click" x:Name="MakeOrderButton" Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20" Padding="20 10">Make order</Button>
         <Button Click="ClearButton_Click" x:Name="ClearButton" Grid.Row="1" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20" Padding="20 10">Clear</Button>

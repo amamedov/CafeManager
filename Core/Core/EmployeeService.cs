@@ -21,14 +21,14 @@ namespace Core
             Update(order);
         }
 
-        public void MakeIngredientsOrder(Dictionary<int, int> order)
+        public void MakeIngredientsOrder(List<int> order)
         {
             var newTransaction = new Transaction { Time = DateTime.Now, Amount = 0 };
             foreach (var o in order)
             {
-                var ingredient = Get<Ingredient>(o.Key);
-                ingredient.QuantityInStorage += o.Value;
-                newTransaction.Amount += Convert.ToDecimal(ingredient.Price * o.Value);
+                var ingredient = Get<Ingredient>(o);
+                ingredient.QuantityInStorage += 100;
+                newTransaction.Amount += Convert.ToDecimal(ingredient.Price * 100);
                 Update(ingredient);
             }
             Add(newTransaction);
@@ -42,6 +42,7 @@ namespace Core
                 {
                     errorMessage = "";
                     employee = allEmployees.Find(u => u.Phone == phone && u.Password == password);
+                    this.employee = employee;
                 }
                 else
                 {
@@ -65,12 +66,17 @@ namespace Core
 
         public void StartWorking()
         {
+            WorkingTime = new WorkingPeriod();
             WorkingTime.StartDt = DateTime.Now;
         }
         public void EndWorking()
         {
             WorkingTime.EndDt = DateTime.Now;
-            employee.WorkingPeriods.Add(WorkingTime);
+            if (employee.WorkingPeriods != null)
+                employee.WorkingPeriods.Add(WorkingTime);
+            else
+                employee.WorkingPeriods = new List<WorkingPeriod> { WorkingTime };
+            Repository.Update(employee);
         }
 
         public void Add<T>(T obj) where T : class

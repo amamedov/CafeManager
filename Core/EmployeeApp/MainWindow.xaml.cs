@@ -1,4 +1,5 @@
 ﻿using Core;
+using Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,14 +23,13 @@ namespace EmployeeApp
     public partial class MainWindow : Window
     {
         EmployeeService service;
-        public MainWindow(EmployeeService service)
+        Employee employee;
+        public MainWindow(EmployeeService service, Employee employee)
         {
             InitializeComponent();
             this.service = service;
-            if (this.service.WorkingTime.StartDt is null)
-            {
-                EndWorkButton.IsEnabled = false;
-            }
+            this.employee = employee;
+            EndWorkButton.IsEnabled = false;
         }
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)

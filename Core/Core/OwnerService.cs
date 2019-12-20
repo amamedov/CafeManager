@@ -10,8 +10,8 @@ namespace Core
     {
         int IComparer<Employee>.Compare(Employee e1, Employee e2)
         {
-            TimeSpan timeSum1 = new TimeSpan();
-            TimeSpan timeSum2 = new TimeSpan();
+            TimeSpan? timeSum1 = new TimeSpan();
+            TimeSpan? timeSum2 = new TimeSpan();
             foreach (var t in e1.WorkingPeriods)
             {
                 timeSum1 += t.EndDt - t.StartDt;
@@ -60,7 +60,7 @@ namespace Core
         public bool SignUpEmployee(string name, string phone, string password, string position, out string errorMessage, out Employee employee)
         {
             var allEmployees = Repository.GetAll<Employee>();
-            if (allEmployees.Exists(u => u.Phone == phone))
+            if (!allEmployees.Exists(u => u.Phone == phone))
             {
                 if (password != "")
                 {

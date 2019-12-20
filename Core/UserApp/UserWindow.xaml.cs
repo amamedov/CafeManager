@@ -2,6 +2,7 @@
 using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -20,10 +21,13 @@ namespace UserApp
     public partial class UserWindow : Window
     {
         UserService service;
-        public UserWindow(UserService userService)
+        User user;
+        public UserWindow(UserService userService, User user)
         {
             InitializeComponent();
+            this.user = user;
             service = userService;
+            OrderListBox.ItemsSource = service.PossibleChoice().Select(o => o.Name);
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -34,7 +38,7 @@ namespace UserApp
 
         private void FeedbackButton_Click(object sender, RoutedEventArgs e)
         {
-            var feedbackWindow = new FeedbackWindow(service);
+            var feedbackWindow = new FeedbackWindow(service, user);
             Hide();
             feedbackWindow.ShowDialog();
             Show();
@@ -43,6 +47,12 @@ namespace UserApp
         private void ClearButton_Click(object sender, RoutedEventArgs e)
         {
             OrderListBox.SelectedItems.Clear();
+        }
+
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (OrderListBox.SelectedItems != null)
+                service.CreateOrder(service.GetAll<MenuPosition>().Where(m => OrderListBox.SelectedItems.Contains(m.Name)).ToList(), false);
         }
     }
 }

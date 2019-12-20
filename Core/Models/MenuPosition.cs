@@ -5,8 +5,9 @@ namespace Models
 {
     public class MenuPosition
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
-        public Dictionary<int, int> IngredientQuantity { get; set; }
+        public List<MenuIngredient> MenuIngredient { get; set; }
     }
 }

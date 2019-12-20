@@ -37,10 +37,10 @@ namespace Core
             Add(newTransaction);
             foreach (var m in menuPositions)
             {
-                foreach (var i in m.IngredientQuantity)
+                foreach (var i in m.MenuIngredient)
                 {
-                    var ingredient = Get<Ingredient>(i.Key);
-                    ingredient.QuantityInStorage -= i.Value;
+                    var ingredient = Get<Ingredient>(i.Id);
+                    ingredient.QuantityInStorage -= i.Quantity;
                     Repository.Update(ingredient);
                 }
            }
@@ -54,8 +54,8 @@ namespace Core
             foreach(var p in allPositions)
             {
                 var check = true;
-                foreach(var i in p.IngredientQuantity)
-                    if (Get<Ingredient>(i.Key).QuantityInStorage < i.Value)
+                foreach(var i in p.MenuIngredient)
+                    if (Get<Ingredient>(i.Id).QuantityInStorage < i.Quantity)
                         check = false;
                 if (check == true)
                     possibleList.Add(p);
@@ -110,7 +110,7 @@ namespace Core
             return user != null;
         }
 
-        public FeedBack GiveFeedBack(string message)
+        public FeedBack GiveFeedBack(string message, User user)
         {
             var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message, Seen=false};
             Add(feedBack);

@@ -1,6 +1,8 @@
 ﻿using Core;
+using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,11 +25,15 @@ namespace OwnerApp
         {
             InitializeComponent();
             this.service = service;
+            Employees.ItemsSource = service.GetAll<Employee>().Select(e => e.Name);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Hide();
+            var AddEmployee = new EmployeeReg(service);
+            AddEmployee.ShowDialog();
+            Show();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

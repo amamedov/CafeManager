@@ -20,10 +20,12 @@ namespace UserApp
     public partial class FeedbackWindow : Window
     {
         UserService service;
-        public FeedbackWindow( UserService userService)
+        User user;
+        public FeedbackWindow( UserService userService, User user)
         {
             InitializeComponent();
             service = userService;
+            this.user = user;
         }
 
         private void CAncelButton_Click(object sender, RoutedEventArgs e)
@@ -35,7 +37,8 @@ namespace UserApp
         {
             if (!string.IsNullOrWhiteSpace(FeedbackTextBox.Text))
             {
-                service.GiveFeedBack(FeedbackTextBox.Text);
+                service.GiveFeedBack(FeedbackTextBox.Text, user);
+                Close();
             }
             else
             {

@@ -36,7 +36,7 @@ namespace EmployeeApp
             }
             else
             {
-                var mainWindow = new MainWindow(service);
+                var mainWindow = new MainWindow(service, employee);
                 Hide();
                 mainWindow.ShowDialog();
                 Show();
