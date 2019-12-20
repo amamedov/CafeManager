@@ -112,7 +112,7 @@ namespace Core
 
         public FeedBack GiveFeedBack(string message)
         {
-            var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message };
+            var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message, Seen=false};
             Add(feedBack);
             return feedBack;
         }
@@ -134,6 +134,11 @@ namespace Core
         public void Add<T>(T obj) where T : class
         {
             Repository.Add(obj);
+        }
+
+        public void Logout()
+        {
+            user = null;
         }
     }
 }

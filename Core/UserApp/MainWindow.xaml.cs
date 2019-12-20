@@ -22,18 +22,17 @@ namespace UserApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        UserService userService;
-        User user;
+        UserService service;
 
         public MainWindow()
         {
             InitializeComponent();
-            userService = new UserService();
+            service = new UserService();
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
-            var rw = new RegistrationWindow(userService);
+            var rw = new RegistrationWindow(service);
             Hide();
             rw.ShowDialog();
             Show();
@@ -43,8 +42,12 @@ namespace UserApp
         {
             if (!string.IsNullOrEmpty(LoginTextBox.Text) && string.IsNullOrEmpty(PasswordBox.Password))
             {
-                if (userService.SignIn(LoginTextBox.Text, PasswordBox.Password, out string message, out user))
+                if (service.SignIn(LoginTextBox.Text, PasswordBox.Password, out string message, out User user))
                 {
+                    var userWindow = new UserWindow(service);
+                    Hide();
+                    userWindow.ShowDialog();
+                    Show();
                 }
                 else
                 {

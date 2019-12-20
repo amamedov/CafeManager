@@ -20,18 +20,24 @@ namespace UserApp
     public partial class UserWindow : Window
     {
         UserService service;
-        User user;
-        public UserWindow(User user, UserService userService)
+        public UserWindow(UserService userService)
         {
             InitializeComponent();
             service = userService;
-            this.user = user;
-            OrderListBox.ItemsSource = service.Repository.GetAll()
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            service.Logout();
             Close();
+        }
+
+        private void FeedbackButton_Click(object sender, RoutedEventArgs e)
+        {
+            var feedbackWindow = new FeedbackWindow(service);
+            Hide();
+            feedbackWindow.ShowDialog();
+            Show();
         }
     }
 }

@@ -19,7 +19,7 @@
         <StackPanel>
             <TextBlock FontSize="18" Margin="10 15" x:Name="WelcomeTextBlock">Welcome</TextBlock>
             <Button x:Name="OrderButton" FontSize="18" Padding="8 5" HorizontalAlignment="Center" Margin="10 60 10 20" VerticalAlignment="Bottom">Make order</Button>
-            <Button x:Name="FeedbackButton" FontSize="18" Padding="8 5" Margin="10 60 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom">Leave feedback</Button>
+            <Button x:Name="FeedbackButton" FontSize="18" Padding="8 5" Margin="10 60 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Click="FeedbackButton_Click">Leave feedback</Button>
             <Button x:Name="ExitButton" FontSize="18" Margin="10 60 10 20" HorizontalAlignment="Center" VerticalAlignment="Bottom" Padding="10 5" Click="ExitButton_Click">Exit</Button>
         </StackPanel>
     </Grid>
