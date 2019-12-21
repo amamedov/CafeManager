@@ -35,6 +35,9 @@ namespace OwnerApp
 
         private void ReadButton_Click(object sender, RoutedEventArgs e)
         {
+            var feedback = service.GetAll<FeedBack>().Find(f => f.UsersFeedBack == FeedbackListBox.SelectedItem.ToString());
+            feedback.Seen = true;
+            service.Update(feedback);
         }
     }
 }

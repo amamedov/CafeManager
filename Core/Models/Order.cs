@@ -7,7 +7,7 @@ namespace Models
     {
         public int Id { get; set; }
         public decimal TotalSum { get; set; }
-        public List<MenuPosition> MenuPositions {get;set;}
+        public int MenuPositionId {get;set;}
         public int? UserId { get; set; }
         public DateTime DeliveryTime { get; set; }
         public bool IsTakeAway { get; set; }

@@ -19,6 +19,6 @@
             <Button Click="AddButton_Click" x:Name="AddButton" FontSize="20" HorizontalAlignment="Center" Margin="20 60 20 20" Padding="15 10">Add employee</Button>
             <Button Click="BackButton_Click" x:Name="BackButton" FontSize="20" HorizontalAlignment="Center" Margin="20 30 20 20" Padding="15 10">Back</Button>
         </StackPanel>
-        <ListBox Name="Employees"  Grid.Column="1"></ListBox>
+        <ListBox Name="Employees" SelectionChanged="Employees_SelectionChanged" Grid.Column="1"></ListBox>
     </Grid>
 </Window>

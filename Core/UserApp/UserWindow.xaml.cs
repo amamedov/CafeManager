@@ -52,7 +52,7 @@ namespace UserApp
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
             if (OrderListBox.SelectedItems != null)
-                service.CreateOrder(service.GetAll<MenuPosition>().Where(m => OrderListBox.SelectedItems.Contains(m.Name)).ToList(), false);
+                service.CreateOrder(service.GetAll<MenuPosition>().First(m => OrderListBox.SelectedItems.Contains(m.Name)).Id, false);
         }
     }
 }

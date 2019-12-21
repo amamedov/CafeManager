@@ -25,7 +25,7 @@ namespace OwnerApp
         {
             InitializeComponent();
             this.service = service;
-            Employees.ItemsSource = service.GetAll<Employee>().Select(e => e.Name);
+            Employees.ItemsSource = service.GetAll<Employee>().Select(e => e.Phone);
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -39,6 +39,12 @@ namespace OwnerApp
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void Employees_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var employee = service.GetAll<Employee>().Find(e => e.Phone == Employees.SelectedItem.ToString());
+            MessageBox.Show($"Name: {employee.Name}, Phone: {employee.Phone}, Position: {employee.Position}");
         }
     }
 }

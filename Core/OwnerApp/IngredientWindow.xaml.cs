@@ -25,12 +25,16 @@ namespace OwnerApp
         {
             InitializeComponent();
             this.service = service;
-            IngredientsListBox.ItemsSource = service.GetAll<Ingredient>();
+            IngredientsListBox.ItemsSource = service.GetAll<Ingredient>().Select(s => s.Name);
         }
 
         private void ViewInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show(service.GetAll<Ingredient>().First(i => i.Name == IngredientsListBox.SelectedItem.ToString()).QuantityInStorage.ToString());
+            if (IngredientsListBox.SelectedItem != null)
+            {
+                var ingredient = service.GetAll<Ingredient>().First(i => i.Name == IngredientsListBox.SelectedItem.ToString());
+                MessageBox.Show($"Quantity of {ingredient.Name} in storage : {ingredient.QuantityInStorage} {ingredient.Measurement}s");
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

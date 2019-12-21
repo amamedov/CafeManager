@@ -104,6 +104,8 @@ namespace Core
 
         public List<Ingredient> GetIngredientInfo() => Repository.GetAll<Ingredient>();
 
+        public Transaction GetTransaction(int Id) => Repository.GetTransaction(Id);
+
         public void Add<T>(T obj) where T : class
         {
             Repository.Add<T>(obj);

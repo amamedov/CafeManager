@@ -1,6 +1,8 @@
 ﻿using Core;
+using Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +25,7 @@ namespace OwnerApp
         {
             InitializeComponent();
             this.service = service;
+            ProfitListBox.ItemsSource = service.GetAll<Transaction>().Select(i => i.Id);
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
@@ -32,7 +35,11 @@ namespace OwnerApp
 
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if(ProfitListBox.SelectedItem != null)
+            {
+                var transaction = service.GetTransaction(int.Parse(ProfitListBox.SelectedIndex.ToString()));
+                MessageBox.Show($"Transaction: {transaction.Id}, Time: {transaction.Time}, Amount: {transaction.Amount}");
+            }
         }
     }
 }

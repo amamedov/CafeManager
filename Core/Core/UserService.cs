@@ -21,29 +21,20 @@ namespace Core
             return order != null;
         }
 
-        public Order CreateOrder(List<MenuPosition> menuPositions, bool isTakeAway)
+        public Order CreateOrder(int menuPositionsId, bool isTakeAway)
         {
-            var newOrder = new Order { 
-            MenuPositions = menuPositions,
-            UserId = user.Id,
-            IsTakeAway = isTakeAway
-            };
-            newOrder.TotalSum = 0;
-            foreach(var s in menuPositions)
+            var newOrder = new Order
             {
-                newOrder.TotalSum += s.Price;
-            }
+                MenuPositionId = menuPositionsId,
+                UserId = user.Id,
+                IsTakeAway = isTakeAway
+            };
+            newOrder.TotalSum = Get<MenuPosition>(menuPositionsId).Price;
             var newTransaction = new Transaction { Time = DateTime.Now, Amount = newOrder.TotalSum };
             Add(newTransaction);
-            foreach (var m in menuPositions)
-            {
-                foreach (var i in m.MenuIngredient)
-                {
-                    var ingredient = Get<Ingredient>(i.Id);
-                    ingredient.QuantityInStorage -= i.Quantity;
-                    Repository.Update(ingredient);
-                }
-           }
+            var ingredient = Get<Ingredient>(Get<MenuIngredient>(Get<MenuPosition>(menuPositionsId).MenuIngredientId).IngredientId);
+            ingredient.QuantityInStorage -= Repository.Get<MenuIngredient>(Get<MenuPosition>(menuPositionsId).MenuIngredientId).Quantity;
+            Repository.Update(ingredient);
             return newOrder;
         }
 
@@ -51,19 +42,18 @@ namespace Core
         {
             var allPositions = Repository.GetAll<MenuPosition>();
             var possibleList = new List<MenuPosition>();
-            foreach(var p in allPositions)
+            foreach (var p in allPositions)
             {
                 var check = true;
-                foreach(var i in p.MenuIngredient)
-                    if (Get<Ingredient>(i.Id).QuantityInStorage < i.Quantity)
-                        check = false;
+                if (Get<Ingredient>(p.MenuIngredientId).QuantityInStorage < Get<Ingredient>(p.MenuIngredientId).QuantityInStorage)
+                    check = false;
                 if (check == true)
                     possibleList.Add(p);
             }
             return possibleList;
         }
 
-        public bool SignIn(string phone, string password,out string errorMessage, out User user)
+        public bool SignIn(string phone, string password, out string errorMessage, out User user)
         {
             var allUsers = GetAll<User>();
             if (allUsers.Exists(u => u.Phone == phone))
@@ -71,6 +61,7 @@ namespace Core
                 {
                     errorMessage = "";
                     user = allUsers.Find(u => u.Phone == phone && u.Password == password);
+                    this.user = user;
                 }
                 else
                 {
@@ -112,7 +103,7 @@ namespace Core
 
         public FeedBack GiveFeedBack(string message, User user)
         {
-            var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message, Seen=false};
+            var feedBack = new FeedBack { UserId = user.Id, UsersFeedBack = message, Seen = false };
             Add(feedBack);
             return feedBack;
         }

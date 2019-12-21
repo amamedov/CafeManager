@@ -23,6 +23,7 @@ namespace Core
         public override List<T> GetAll<T>() => DataBase.Set<T>().ToList();
 
         public override T Get<T>(int Id) => DataBase.Set<T>().ToList().ElementAt(Id - 1);
+        public Transaction GetTransaction(int Id) => DataBase.Set<Transaction>().ToList().ElementAt(Id);
         public List<Order> GetAll(User user) => DataBase.Orders.Where(o => o.UserId == user.Id).ToList();
         public List<Order> GetAll(DateTime startDate, DateTime endDate) => DataBase.Orders.Where(o => o.DeliveryTime >= startDate && o.DeliveryTime <= endDate).ToList();
         public List<Transaction> GetAllTransactions(DateTime startDate, DateTime endDate) => DataBase.Transactions.Where(o => o.Time >= startDate && o.Time <= endDate).ToList();
